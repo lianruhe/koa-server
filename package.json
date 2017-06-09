@@ -1,0 +1,42 @@
+{
+  "name": "koa-server",
+  "version": "1.0.0",
+  "description": "A server of koa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lianruhe/koa-server.git"
+  },
+  "scripts": {
+    "start": "webpack --progress --colors --config webpack.config.js && node dist/server.bundle.js"
+  },
+  "author": "shanks <lianruhe2013@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-polyfill": "^6.13.0",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "history": "^3.0.0",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.7.0",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-latest": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.24.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.22.0",
+    "ignore-loader": "^0.1.1",
+    "redux-logger": "^2.6.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.0"
+  }
+}
