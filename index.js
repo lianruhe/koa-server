@@ -5,10 +5,11 @@ import mount from 'koa-mount';
 import graphQLHTTP from 'koa-graphql';
 import convert from 'koa-convert';
 import serve from 'koa-static';
+import config from './config'
 
-import * as middleware from './middleware';
-import schema from './graphql';
-import publish from './publish';
+// import * as middleware from './middleware';
+// import schema from './graphql';
+// import publish from './publish';
 
 const app = new Koa();
 
