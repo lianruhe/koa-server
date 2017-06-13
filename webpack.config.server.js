@@ -1,11 +1,10 @@
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
-const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
+// const nodeExternals = require('webpack-node-externals')
 
 import _debug from 'debug'
-import config, { paths } from './config'
+import config from './config'
 const { __DEV__, __PROD__ } = config.globals
 const debug = _debug('server:webpack')
 
@@ -13,22 +12,21 @@ debug('Create configuration.')
 
 const webpackConfig = {
   target: 'node',
-  devtool: '#source-map',
+  devtool: 'source-map',
   entry: {
     app: [
-      'babel-polyfill'
       './index.js'
     ]
   },
   output: {
-    path: paths.dist(),
-    publicPath: config.compiler_public_path,
-    filename: 'server-bundle.js',
+    path: config.paths.dist(),
+    publicPath: config.paths.public(),
+    filename: 'server.bundle.js',
     libraryTarget: 'commonjs2' // ????????
   },
   resolve: {
     alias: {
-      'public': paths.base('./public')
+      'public': config.paths.public()
     }
   },
   module: {
@@ -65,8 +63,7 @@ const webpackConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(config.env)
-    }),
-    new VueSSRServerPlugin()
+    })
   ]
 }
 
@@ -78,7 +75,7 @@ if (__PROD__) {
       }
     }),
     new ExtractTextPlugin({
-      filename: 'common.[chunkhash].css'
+      filename: 'common.[contenthash].css'
     })
   )
 } else {
