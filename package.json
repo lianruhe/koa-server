@@ -7,13 +7,14 @@
     "url": "https://github.com/lianruhe/koa-server.git"
   },
   "scripts": {
-    "start": "webpack --progress --colors --config webpack.config.server.js && node dist/server.bundle.js",
-    "server": "concurrently -r -k \"cross-env NODE_ENV=development DEBUG=app* nodemon ./cli/compile.js\" \"node dist/server.bundle.js\""
+    "clean": "node ./cli/clean.js",
+    "compile": "cross-env NODE_ENV=production DEBUG=server* node ./cli/compile.js",
+    "dev": "concurrently -r -k \"cross-env NODE_ENV=development DEBUG=server* nodemon ./cli/compile.js\" \"node dist/server.bundle.js\"",
+    "start": "npm run clean && npm run compile && node dist/server.bundle.js"
   },
   "author": "shanks <lianruhe2013@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "babel-polyfill": "^6.13.0",
     "koa": "^2.2.0",
     "koa-static": "^3.0.0"
   },
@@ -29,10 +30,11 @@
     "babel-register": "^6.24.1",
     "concurrently": "^3.4.0",
     "cross-env": "^5.0.1",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "nodemon": "^1.11.0",
     "style-loader": "^0.13.1",
-    "webpack": "^2.6.1"
+    "webpack": "^2.6.1",
+    "webpack-node-externals": "^1.6.0"
   }
 }

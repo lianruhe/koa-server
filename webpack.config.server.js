@@ -1,7 +1,6 @@
-const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-// const nodeExternals = require('webpack-node-externals')
+import webpack from 'webpack'
+import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin'
+import nodeExternals from 'webpack-node-externals'
 
 import _debug from 'debug'
 import config from './config'
@@ -12,25 +11,19 @@ debug('Create configuration.')
 
 const webpackConfig = {
   target: 'node',
-  devtool: 'source-map',
-  entry: {
-    app: [
-      './index.js'
-    ]
-  },
+  devtool: 'inline-source-map',
+  entry: './index.js',
   output: {
     path: config.paths.dist(),
-    publicPath: config.paths.public(),
-    filename: 'server.bundle.js',
-    libraryTarget: 'commonjs2' // ????????
+    publicPath: config.compiler_public_path,
+    filename: 'server.bundle.js'
   },
-  resolve: {
-    alias: {
-      'public': config.paths.public()
-    }
-  },
+  // resolve: {
+  //   alias: {
+  //     'public': config.paths.public()
+  //   }
+  // },
   module: {
-    noParse: /es6-promise\.js$/, // avoid webpack shimming process??????
     rules: [
       {
         test: /\.js$/,
@@ -47,35 +40,26 @@ const webpackConfig = {
       },
       {
         test: /\.css$/,
-        use: __PROD__
-          ? ExtractTextPlugin.extract({
-              use: 'css-loader?minimize',
-              fallback: 'style-loader'
-            })
-          : ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
-  performance: {
-    maxEntrypointSize: 300000,
-    hints: __PROD__ ? 'warning' : false
-  },
+  externals: nodeExternals({
+    // do not externalize CSS files in case we need to import it from a dep
+    whitelist: /\.css$/
+  }),
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(config.env)
-    })
+    new webpack.DefinePlugin(config.globals)
   ]
 }
 
 if (__PROD__) {
+  debug('Enable plugins for production (Dedupe & UglifyJS).')
   webpackConfig.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       }
-    }),
-    new ExtractTextPlugin({
-      filename: 'common.[contenthash].css'
     })
   )
 } else {

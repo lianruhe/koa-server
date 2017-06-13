@@ -1,21 +1,28 @@
-
 // import path from 'path';
-import Koa from 'koa';
+import Koa from 'koa'
 // import mount from 'koa-mount';
 // import graphQLHTTP from 'koa-graphql';
 // import convert from 'koa-convert';
-import serve from 'koa-static';
-import config from './config'
+import serve from 'koa-static'
+import config, { paths } from './config'
 
 // import * as middleware from './middleware';
 // import schema from './graphql';
 // import publish from './publish';
 
-const app = new Koa();
+const app = new Koa()
 
 const PORT = config.server_port
-const PUBLIC_PATH = config.paths.public()
-const staticServer = serve(PUBLIC_PATH);
+
+app.use(serve('.'))
+
+app.use((ctx, next) => {
+  return next().then(() => {
+    if ('/' == ctx.path) {
+      ctx.body = 'Try GET /package.json'
+    }
+  });
+})
 
 // app.use(middleware.serverErrorHandler);
 // app.use(middleware.pageNotFound);
@@ -28,16 +35,16 @@ const staticServer = serve(PUBLIC_PATH);
 // Publish service
 // app.use(mount('/publish', publish));
 
-if (config.globals.__DEV__) {
+// if (config.globals.__DEV__) {
 	// koa static
-	app.use(staticServer);
+	// app.use(staticServer);
 	//
 	// const devMiddleware = require('./middleware/webpack-middleware').devMiddleware;
 	// const hotMiddleware = require('./middleware/webpack-middleware').hotMiddleware;
 	//
 	// app.use(devMiddleware);
 	// app.use(hotMiddleware);
-}
+// }
 
 // server render
 // app.use(middleware.serverRender);
@@ -46,9 +53,9 @@ if (config.globals.__DEV__) {
 // })
 
 app.on('error', function(err) {
-	console.log('server error', err);
+	console.log('server error:', err);
 })
 
 app.listen(PORT, () => {
-	console.log(`Blog is running, port: ${PORT}`)
+	console.log(`Server is running, port: ${PORT}`)
 })
