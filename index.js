@@ -21,7 +21,7 @@ app.use((ctx, next) => {
     if ('/' == ctx.path) {
       ctx.body = 'Try GET /package.json'
     }
-  });
+  })
 })
 
 // app.use(middleware.serverErrorHandler);
@@ -53,7 +53,7 @@ app.use((ctx, next) => {
 // })
 
 app.on('error', function(err) {
-	console.log('server error:', err);
+	console.log('server error:', err)
 })
 
 app.listen(PORT, () => {

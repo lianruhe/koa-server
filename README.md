@@ -34,4 +34,4 @@ npm run start
 
 ## License
 
-MIT
+[MIT](/blob/master/LICENSE)
