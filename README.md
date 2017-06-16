@@ -34,4 +34,4 @@ npm run start
 
 ## License
 
-[MIT](/blob/master/LICENSE)
+[MIT](https://github.com/lianruhe/koa-server/blob/master/LICENSE)

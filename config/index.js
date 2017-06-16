@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import _debug from 'debug'
 
-const debug = _debug('server:config:base')
+_debug('server:config:base')
 
 const config = {
   env: process.env.NODE_ENV || 'development',

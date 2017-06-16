@@ -14,11 +14,11 @@ const app = new Koa()
 
 const PORT = config.server_port
 
-app.use(serve('.'))
+app.use(serve(paths.public()))
 
 app.use((ctx, next) => {
   return next().then(() => {
-    if ('/' == ctx.path) {
+    if (ctx.path === '/') {
       ctx.body = 'Try GET /package.json'
     }
   })
@@ -36,26 +36,23 @@ app.use((ctx, next) => {
 // app.use(mount('/publish', publish));
 
 // if (config.globals.__DEV__) {
-	// koa static
-	// app.use(staticServer);
-	//
-	// const devMiddleware = require('./middleware/webpack-middleware').devMiddleware;
-	// const hotMiddleware = require('./middleware/webpack-middleware').hotMiddleware;
-	//
-	// app.use(devMiddleware);
-	// app.use(hotMiddleware);
+// koa static
+// app.use(staticServer);
+//
+// const devMiddleware = require('./middleware/webpack-middleware').devMiddleware;
+// const hotMiddleware = require('./middleware/webpack-middleware').hotMiddleware;
+//
+// app.use(devMiddleware);
+// app.use(hotMiddleware);
 // }
 
 // server render
 // app.use(middleware.serverRender);
-// app.use(ctx => {
-//   ctx.body = 'Hello Koa'
-// })
 
-app.on('error', function(err) {
-	console.log('server error:', err)
+app.on('error', err => {
+  console.log('server error:', err)
 })
 
 app.listen(PORT, () => {
-	console.log(`Server is running, port: ${PORT}`)
+  console.log(`Server is running, port: ${PORT}`)
 })

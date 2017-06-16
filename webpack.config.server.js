@@ -4,7 +4,7 @@ import nodeExternals from 'webpack-node-externals'
 
 import _debug from 'debug'
 import config from './config'
-const { __DEV__, __PROD__ } = config.globals
+const { __PROD__ } = config.globals
 const debug = _debug('server:webpack')
 
 debug('Create configuration.')
