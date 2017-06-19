@@ -14,7 +14,7 @@ const config = {
   path_base: resolve(__dirname, '../'),
   dir_src: 'src',
   dir_dist: 'dist',
-  dir_public: 'public',
+  dir_public: './public',
 
   // ----------------------------------
   // Server Configuration
@@ -50,8 +50,7 @@ config.paths = (() => {
   return {
     base,
     src: base.bind(null, config.dir_src),
-    dist: base.bind(null, config.dir_dist),
-    public: base.bind(null, config.dir_public)
+    dist: base.bind(null, config.dir_dist)
   }
 })()
 
