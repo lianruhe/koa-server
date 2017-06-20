@@ -8,7 +8,9 @@ A server of koa
   ├── cli                      # 打包，清理脚本
   ├── config                   # 配置文件
   ├── dist                     # 打包之后的文件
-  ├── public                   # 静态资源文件
+  ├── middleware               # Koa 一些中间件
+  ├── public                   # 静态资源文件（web 服务器）
+  ├── routes                   # API 实现
   └── index.js                 # 服务器入口文件
   ```
 
@@ -18,16 +20,19 @@ A server of koa
 # 安装依赖包
 npm run install
 
-# 启动开发环境
-npm run dev
-
 # 清除打包目录
 npm clean
 
 # 打包
 npm run compile
 
-# 开启服务
+# 开启服务（监听模式）
+npm run watch
+
+# 开启服务（development）
+npm run dev
+
+# 开启服务（production）
 npm run start
 
 ```

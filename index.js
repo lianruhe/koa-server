@@ -1,5 +1,7 @@
 // import path from 'path';
 import Koa from 'koa'
+import middlewares from './middleware'
+import router from './router'
 // import mount from 'koa-mount';
 // import graphQLHTTP from 'koa-graphql';
 // import convert from 'koa-convert';
@@ -15,8 +17,8 @@ import config from './config'
 
 const app = new Koa()
 
-// 不以 v 开头的请求都是请求静态文件！！去查找 public 目录
-// const regFile = /^(?!v)/
+app.use(middlewares)
+
 app.use(async (ctx, next) => {
   const { response, request } = ctx
   response.append('Access-Control-Allow-Origin', request.origin)
@@ -24,13 +26,14 @@ app.use(async (ctx, next) => {
   response.append('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS,TRACE')
   response.append('Access-Control-Allow-Credentials', true)
   if (request.method.toLocaleLowerCase() === 'options') {
-    response.send(200)
+    ctx.status = 200
   } else {
     await next()
   }
 })
 
 app.use(serve(config.dir_public))
+app.use(router.routes())
 
 // app.use(middleware.serverErrorHandler);
 // app.use(middleware.pageNotFound);
@@ -56,10 +59,29 @@ app.use(serve(config.dir_public))
 
 // server render
 // app.use(middleware.serverRender);
+//
 
-app.on('error', err => {
-  console.error('server error:', err)
-})
+// app.use(async (ctx, next) => {
+//   try {
+//     await next()
+//   } catch (err) {
+//     // some errors will have .status
+//     // however this is not a guarantee
+//     ctx.status = err.status || 500
+//     ctx.type = 'html'
+//     ctx.body = '<p>Something <em>exploded</em>, please contact Maru.</p>'
+//
+//     // since we handled this manually we'll
+//     // want to delegate to the regular app
+//     // level error handling as well so that
+//     // centralized still functions correctly.
+//     ctx.app.emit('error', err, ctx)
+//   }
+// })
+//
+// app.on('error', err => {
+//   console.error('Server error:', err)
+// })
 
 const PORT = config.server_port
 app.listen(PORT, () => {
