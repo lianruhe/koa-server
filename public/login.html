@@ -9,7 +9,12 @@
   </head>
   <body>
     <div id="app">
-      <h1>Hello Koa!</h1>
+      <h1>Hello word!</h1>
+      <form action="/api/signin" method="post">
+        <p>Name: <input name="name" value="koa"></p>
+        <p>Password: <input name="password" type="password"></p>
+        <p><input type="submit" value="Submit"></p>
+      </form>
     </div>
   </body>
 </html>
