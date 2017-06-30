@@ -21,7 +21,7 @@ A server of koa
 npm run install
 
 # 清除打包目录
-npm clean
+npm run clean
 
 # 打包
 npm run compile
