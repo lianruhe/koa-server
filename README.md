@@ -11,7 +11,7 @@ A server of koa
   ├── middleware               # Koa 一些中间件
   ├── public                   # 静态资源文件（web 服务器）
   ├── router                   # API 实现
-  └── index.js                 # 服务器入口文件
+  └── index.js                 # 入口文件
   ```
 
 ## Usage
