@@ -9,7 +9,7 @@ A server of koa
   ├── config                   # 配置文件
   ├── dist                     # 打包之后的文件
   ├── middleware               # Koa 一些中间件
-  ├── public                   # 静态资源文件（web 服务器）
+  ├── public                   # 静态资源（web 服务器）
   ├── router                   # API 实现
   └── index.js                 # 入口文件
   ```
