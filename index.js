@@ -1,20 +1,30 @@
 // import path from 'path';
 import Koa from 'koa'
+// import mongoose from 'mongoose'
 import middlewares from './middleware'
-import router from './router'
+// import router from './router'
 // import mount from 'koa-mount';
 // import graphQLHTTP from 'koa-graphql';
 // import convert from 'koa-convert';
 import serve from 'koa-static'
 import config from './config'
 
-// const html = require('public')
-// console.log(html, 111100000000)
-
 // import * as middleware from './middleware';
 // import schema from './graphql';
 // import publish from './publish';
 
+/**
+ * ------------------------------------------
+ * mongodb
+ * ------------------------------------------
+ */
+// global.db = mongoose.createConnection('mongodb://localhost/koa-server')
+
+/**
+ * ------------------------------------------
+ * Koa
+ * ------------------------------------------
+ */
 const app = new Koa()
 
 app.use(middlewares)
@@ -33,7 +43,7 @@ app.use(async (ctx, next) => {
 })
 
 app.use(serve(config.dir_public))
-app.use(router.routes())
+app.use(require('./router').routes())
 
 // app.use(middleware.serverErrorHandler);
 // app.use(middleware.pageNotFound);
