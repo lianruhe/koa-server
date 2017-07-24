@@ -1,6 +1,5 @@
 // import path from 'path';
 import Koa from 'koa'
-// import mongoose from 'mongoose'
 import middlewares from './middleware'
 // import router from './router'
 // import mount from 'koa-mount';
@@ -18,6 +17,7 @@ import config from './config'
  * mongodb
  * ------------------------------------------
  */
+// import './mongoose'
 // global.db = mongoose.createConnection('mongodb://localhost/koa-server')
 
 /**
@@ -44,11 +44,6 @@ app.use(async (ctx, next) => {
 
 app.use(serve(config.dir_public))
 app.use(require('./router').routes())
-
-// app.use(middleware.serverErrorHandler);
-// app.use(middleware.pageNotFound);
-// app.use(middleware.responseTime);
-// app.use(middleware.logger);
 
 // koa graphql
 // app.use(mount('/graphql', convert(graphQLHTTP({ schema, pretty: true }))));
