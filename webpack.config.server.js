@@ -18,11 +18,13 @@ const webpackConfig = {
     publicPath: config.compiler_public_path,
     filename: 'server.bundle.js'
   },
-  // resolve: {
-  //   alias: {
-  //     'public': config.paths.public()
-  //   }
-  // },
+  resolve: {
+    modules: [config.paths.base(), 'node_modules'],
+    extensions: ['.js', '.jsx', '.json', '.css']
+    // alias: {
+    //   'public': config.paths.public()
+    // }
+  },
   module: {
     rules: [
       {

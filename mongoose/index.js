@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 // import bluebird from 'bluebird'
 
 mongoose.Promise = global.Promise
-const db = mongoose.createConnection('mongodb://localhost/koa-server', {
+const db = mongoose.createConnection('mongodb://admin:1234567@localhost/koa-server', {
   useMongoClient: true
 })
 db.on('error', console.error.bind(console, 'Mongodb connection error:'))

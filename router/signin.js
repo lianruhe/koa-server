@@ -1,40 +1,34 @@
 import { AccountModel } from '../mongoose'
+import { loginError } from 'config/error'
+import catchError from 'utils/server-error'
 
 export default {
   method: 'post',
   api: '/api/signin',
   fn: async ctx => {
-    const username = ctx.request.body.username || ''
-    const password = ctx.request.body.password || ''
+    const { username, password } = ctx.request.body
     console.log(`signin with username: ${username}, password: ${password}`)
 
     try {
       const user = await AccountModel.findOne({ username, password }, 'username')
       if (!user) {
-        ctx.response.status = 403
-        ctx.response.body = `<h1>Login failed!</h1>
-        <p><a href="/login.html">Try again</a></p>`
+        const { status, code, message } = loginError
+        ctx.response.status = status
+        ctx.response.body = {
+          code,
+          message
+        }
       } else {
-        console.log('user:', user)
         if (user && user.username) {
-          ctx.redirect('/')
+          // ctx.redirect('/')
+          ctx.response.status = 200
+          ctx.response.body = {
+            username: user.username
+          }
         }
       }
     } catch (e) {
-      console.log(e)
+      catchError(ctx, e)
     }
-
-    // , (err, user) => {
-    //   if (err) return
-    //   console.log('err:', err)
-    //   console.log('user:', user)
-    //   if (user && user.username) {
-    //     ctx.redirect('/')
-    //   } else {
-    //     ctx.response.status = 403
-    //     ctx.response.body = `<h1>Login failed!</h1>
-    //     <p><a href="/login.html">Try again</a></p>`
-    //   }
-    // }
   }
 }
