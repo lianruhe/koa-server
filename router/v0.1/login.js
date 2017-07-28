@@ -1,11 +1,9 @@
-import { AccountModel } from '../mongoose'
+import { AccountModel } from '../../mongoose'
 import { loginError } from 'config/error'
 import catchError from 'utils/server-error'
 
 export default {
-  method: 'post',
-  api: '/api/signin',
-  fn: async ctx => {
+  post: async ctx => {
     const { username, password } = ctx.request.body
     console.log(`signin with username: ${username}, password: ${password}`)
 

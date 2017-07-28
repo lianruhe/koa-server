@@ -1,4 +1,5 @@
 // import path from 'path';
+import debug from 'debug'
 import Koa from 'koa'
 import middlewares from './middleware'
 // import router from './router'
@@ -7,6 +8,8 @@ import middlewares from './middleware'
 // import convert from 'koa-convert';
 import serve from 'koa-static'
 import config from './config'
+
+const _debug = debug('server:server')
 
 // import * as middleware from './middleware';
 // import schema from './graphql';
@@ -90,5 +93,5 @@ app.use(require('./router').routes())
 
 const PORT = config.server_port
 app.listen(PORT, () => {
-  console.log(`Server is running, port: ${PORT}`)
+  _debug(`Server is running, port: ${PORT}`)
 })

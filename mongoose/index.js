@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose'
-// import bluebird from 'bluebird'
 
 mongoose.Promise = global.Promise
 const db = mongoose.createConnection('mongodb://admin:1234567@localhost/koa-server', {
