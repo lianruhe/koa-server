@@ -69,28 +69,6 @@ app.use(require('./router').routes())
 // app.use(middleware.serverRender);
 //
 
-// app.use(async (ctx, next) => {
-//   try {
-//     await next()
-//   } catch (err) {
-//     // some errors will have .status
-//     // however this is not a guarantee
-//     ctx.status = err.status || 500
-//     ctx.type = 'html'
-//     ctx.body = '<p>Something <em>exploded</em>, please contact Maru.</p>'
-//
-//     // since we handled this manually we'll
-//     // want to delegate to the regular app
-//     // level error handling as well so that
-//     // centralized still functions correctly.
-//     ctx.app.emit('error', err, ctx)
-//   }
-// })
-//
-// app.on('error', err => {
-//   console.error('Server error:', err)
-// })
-
 const PORT = config.server_port
 app.listen(PORT, () => {
   _debug(`Server is running, port: ${PORT}`)

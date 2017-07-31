@@ -3,6 +3,11 @@
  * @type Object
  */
 export default {
+  unknowError: {
+    status: 500,
+    code: 'SERVER/UNKONW_ERROR',
+    message: '未知错误'
+  },
   serverError: {
     status: 500,
     code: 'SERVER/SERVER_ERROR',
